@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zapclip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;800&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#3d0f82;--card:#2d0a63;--ink:#fff;--mute:#e0c9ff;--line:rgba(255,255,255,.24);--acc:#c24dff;--acc-ink:#2a0a5e;--track:#24074f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;line-height:1.7}
+main{max-width:680px;margin:0 auto;padding:20px 18px 60px}
+[hidden]{display:none!important}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:18px}
+.brand{font-weight:800;font-size:1.6rem;display:flex;align-items:baseline;gap:8px}
+.brand span{font-size:1rem;color:var(--acc);direction:ltr;font-weight:500}
+.tb{display:flex;gap:8px}
+.sm{padding:7px 12px;border:1.5px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.sm.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h1{font-size:2rem;line-height:1.3;font-weight:800;margin:0 0 8px}
+h2{font-size:1.2rem;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 22px}
+.beta{background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:8px 12px;font-size:.85rem;color:var(--mute);margin-bottom:18px}
+label{display:block;font-weight:500;margin:14px 0 6px}
+textarea,select,input[type=email]{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+textarea{direction:ltr;text-align:left;resize:vertical}
+input[type=email]{direction:ltr;text-align:left}
+input[type=range]{width:100%}
+input[type=color]{width:100%;height:46px;padding:2px;border:1.5px solid var(--line);border-radius:10px;background:var(--card)}
+.chk{display:flex;gap:8px;align-items:center}.chk input{width:auto}
+textarea:focus-visible,select:focus-visible,button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row{grid-template-columns:1fr}}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:14px;background:var(--card);padding:4px;border-radius:12px;border:1px solid var(--line)}
+.tabs button{padding:10px;border:0;border-radius:9px;background:transparent;color:var(--mute);font:inherit;font-weight:500;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--acc);color:var(--acc-ink);font-weight:800}
+.drop{display:flex;align-items:center;justify-content:center;text-align:center;min-height:120px;padding:16px;border:2px dashed var(--line);border-radius:12px;background:var(--card);color:var(--mute);cursor:pointer;margin:0}
+.tpg{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}
+.tpg button{padding:6px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-size:.85rem;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.tpg button.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.tv{display:flex;align-items:center;justify-content:center;background:#1e0646;border-radius:8px;height:50px;overflow:hidden}
+.tv .cap{font-size:14px!important}
+details{margin-top:14px}summary{cursor:pointer;font-weight:500}
+fieldset{border:0;padding:0;margin:0}
+.go{width:100%;margin-top:20px;padding:15px;border:0;border-radius:12px;background:var(--acc);color:var(--acc-ink);font:inherit;font-weight:800;font-size:1.05rem;cursor:pointer}
+.go:disabled{opacity:.6}
+.err{color:#ffc2e8;margin:8px 0 0;min-height:1.4em;font-size:.9rem}
+.plan{margin:14px 0 0;font-size:.9rem;color:var(--mute)}.plan b{color:var(--ink)}
+.trial{color:var(--acc);font-weight:500;margin:6px 0 0;font-size:.9rem}
+#status{margin-top:22px}
+.steps{list-style:none;padding:0;margin:0}
+.steps li{padding:6px 0;color:var(--mute)}
+.steps li.on{color:var(--ink);font-weight:500}
+.steps li.done::before{content:"\2713 ";color:var(--acc)}
+.tl{position:relative;height:34px;background:var(--track);border-radius:8px;margin:12px 0 4px;overflow:hidden;direction:ltr}
+.tl span{position:absolute;top:0;bottom:0;background:var(--acc);opacity:.9;border-radius:4px;cursor:pointer}
+.ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--mute);direction:ltr}
+.vh{font-size:1.1rem;margin:22px 0 0;padding-top:12px;border-top:2px solid var(--ink)}
+.clip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}
+.clip h3{margin:0 0 4px;font-size:1.05rem}
+.meta{color:var(--mute);font-size:.88rem;margin:0 0 10px}
+.screen{position:relative;aspect-ratio:9/16;max-height:300px;margin:0 auto 12px;border-radius:12px;background:#1e0646;display:flex;align-items:flex-end;justify-content:center;padding:18px;overflow:hidden;text-align:center}
+.wm{position:absolute;top:8px;inset-inline-start:10px;font-size:.72rem;font-weight:800;opacity:.65}
+.cap{font-weight:800;font-size:1.15rem;line-height:1.4;color:#fff;text-shadow:0 2px 0 #000,0 0 8px #000}
+@keyframes fade{0%,100%{opacity:0}25%,75%{opacity:1}}
+@keyframes pop{0%,100%{transform:scale(.3);opacity:0}25%,75%{transform:scale(1);opacity:1}}
+@keyframes slide{0%,100%{transform:translateY(30px);opacity:0}25%,75%{transform:none;opacity:1}}
+@media (prefers-reduced-motion:no-preference){.cap.fade{animation:fade 3s infinite}.cap.pop{animation:pop 3s infinite}.cap.slide{animation:slide 3s infinite}}
+.badge{background:var(--ink);color:var(--bg);border-radius:8px;padding:1px 8px;font-size:.78rem;font-weight:800}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{flex:1;min-width:110px;padding:10px;border:1.5px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.acts button.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.more{margin-top:14px;width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.info div div{color:var(--mute);font-size:.8rem}
+.pricing{margin-top:44px}.pricing h2{font-size:1.4rem}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+.pc{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column}
+.pc.best{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.pc h3{margin:0;font-size:1.05rem}.pr{font-size:1.9rem;font-weight:800;margin:4px 0}.pr small{font-size:.85rem;font-weight:400;color:var(--mute)}
+.pc ul{list-style:none;margin:0 0 14px;padding:0;color:var(--mute);font-size:.9rem;flex:1}.pc li{padding:2px 0}
+.pb{display:block;text-align:center;text-decoration:none;padding:10px;border:1.5px solid var(--ink);border-radius:10px;color:var(--ink);font:inherit}
+.pc.best .pb{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.pb.dis{opacity:.6}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:.9rem;color:var(--mute)}
+footer a{color:var(--ink);font-weight:500}
+.modal{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;padding:16px;z-index:9}
+.modal .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;max-width:360px;width:100%}
+.modal h3{margin:0 0 8px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:10;max-width:90%;text-align:center;font-weight:500}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+ <div class="brand">زاب كليب <span>Zapclip</span></div>
+ <div class="tb"><button class="sm" id="lang" type="button">EN</button><button class="sm" id="lo" type="button" data-i="logout" hidden></button><button class="sm p" id="li" type="button" data-i="signup"></button></div>
+</div>
+<h1 data-i="h1"></h1>
+<p class="sub" data-i="sub"></p>
+<div class="beta" data-i="demo"></div>
+<p class="plan" id="plan"></p>
+
+<div class="tabs" role="tablist">
+ <button type="button" role="tab" aria-selected="true" data-m="link" data-i="tab_link"></button>
+ <button type="button" role="tab" aria-selected="false" data-m="file" data-i="tab_file"></button>
+</div>
+<div id="pn-link"><label for="url" data-i="links_lbl"></label><textarea id="url" rows="3" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off"></textarea></div>
+<div id="pn-file" hidden><label for="files" data-i="files_lbl"></label><label class="drop" for="files"><span id="fname" data-i="drop"></span></label><input id="files" type="file" accept="video/*" multiple hidden></div>
+<p class="err" id="err" role="alert"></p>
+
+<div class="row">
+ <div><label for="ln" data-i="len"></label><select id="ln"><option value="1"></option><option value="2"></option><option value="3"></option><option value="4"></option><option value="5"></option></select></div>
+ <div><label for="cs" data-i="capsel"></label><select id="cs"><option value="0" data-i="cl0"></option><option value="1" data-i="cl1" selected></option><option value="2" data-i="cl2"></option><option value="3" data-i="cl3"></option></select></div>
+</div>
+
+<label id="tpl" data-i="tpl"></label>
+<div class="tpg" id="tpg" role="group" aria-labelledby="tpl"></div>
+<details><summary data-i="style"></summary>
+ <p class="meta" id="lock"></p>
+ <fieldset id="fs">
+  <label class="chk"><input type="checkbox" id="cu"><span data-i="custom"></span></label>
+  <div class="row">
+   <div><label for="ft" data-i="font"></label><select id="ft"><option value="'Tajawal'">Tajawal</option><option value="Georgia">Georgia</option><option value="'Courier New'">Courier</option><option value="Impact">Impact</option></select></div>
+   <div><label for="an" data-i="anim"></label><select id="an"><option value="none" data-i="a0"></option><option value="fade" data-i="a1"></option><option value="pop" data-i="a2"></option><option value="slide" data-i="a3"></option></select></div>
+   <div><label for="sz" data-i="size"></label><input id="sz" type="range" min="12" max="28" value="16"></div>
+   <div><label for="co" data-i="color"></label><input id="co" type="color" value="#ffffff"></div>
+  </div>
+ </fieldset>
+</details>
+<p class="trial" id="tr" data-i="trial" hidden></p>
+
+<button class="go" id="go" type="button" data-i="go"></button>
+<section id="status" aria-live="polite"></section>
+<section id="res" hidden><div id="cl"></div><div id="mr"></div></section>
+
+<div class="clip" id="db" hidden>
+ <div class="info" id="dbi"></div>
+ <div class="row" style="margin-top:14px"><button class="sm" id="ad" type="button" data-i="ad"></button><select id="dp"><option value="free" data-i="free"></option><option value="starter" data-i="starter"></option><option value="pro" data-i="pro"></option></select></div>
+ <p class="meta" style="margin:8px 0 0" data-i="dpn"></p>
+</div>
+<div class="clip" id="my" hidden><h3 data-i="my"></h3><p class="meta" data-i="mynote"></p><div id="myl" class="meta"></div></div>
+
+<section class="pricing" id="pricing">
+ <h2 data-i="pricing"></h2><p class="sub" data-i="pricing_sub"></p>
+ <div class="plans" id="pl"></div>
+</section>
+
+<footer>
+ <div><span data-i="dev"></span> <b>3robi_ai</b> &middot; <a href="https://instagram.com/3robi_ai" target="_blank" rel="noopener">Instagram @3robi_ai</a></div>
+ <div><span data-i="support"></span>: <a href="mailto:lifeatest9@gmail.com">lifeatest9@gmail.com</a></div>
+</footer>
+</main>
+
+<div class="modal" id="md" hidden><div class="box">
+ <h3 data-i="lt"></h3>
+ <input id="em" type="email" placeholder="example@gmail.com" autocomplete="email">
+ <p class="err" id="ee"></p>
+ <button class="go" id="ok" type="button" style="margin-top:6px" data-i="cont"></button>
+ <button class="sm" id="cx" type="button" style="width:100%;margin-top:8px">&#10005;</button>
+</div></div>
+<div id="toast" hidden></div>
+
+<script>
+const T={
+ar:{signup:"سجّل الآن",logout:"خروج",h1:"حوّل أي فيديو يوتيوب إلى كليبات جاهزة للنشر",sub:"الصق الرابط، واختر الكتابة والقالب، وسنقترح أقوى اللقطات.",demo:"نسخة تجريبية للواجهة: النتائج أمثلة وليست تحليلاً حقيقياً بعد، والدفع الآلي غير مفعّل.",tab_link:"لصق رابط",tab_file:"رفع ملف",links_lbl:"روابط الفيديوهات (رابط في كل سطر)",files_lbl:"ملفات الفيديو من جهازك",drop:"اضغط لاختيار فيديو واحد أو أكثر",len:"مدة الفيديو",m:"د",capsel:"الكتابة التلقائية",cl0:"بدون كتابة",cl1:"العربية الفصحى",cl2:"الدارجة الجزائرية",cl3:"English",tpl:"قالب الكتابة (★ لخطط ستارتر وبرو)",style:"تعديل الكتابة (برو)",custom:"تخصيص يدوي فوق القالب",font:"الخط",size:"الحجم",color:"اللون",anim:"الأنميشن",a0:"بدون",a1:"تلاشي",a2:"ظهور",a3:"انزلاق",proonly:"تعديل الكتابة متاح لخطة برو (وأول كليب لك مجاناً).",tlock:"هذا القالب لخطط ستارتر وبرو (وأول كليب مجاناً).",go:"أنشئ الكليبات",steps:["قراءة الفيديوهات","تحويل الكلام إلى نص","اختيار أقوى اللحظات","إضافة الكتابة والمونتاج"],found:"وجدنا {n} كليبات",tlnote:"الأجزاء الملونة هي اللقطات المقترحة.",vid:"الفيديو",score:"التقييم",pv:"معاينة",dl:"تنزيل",pvdemo:"المعاينة الحقيقية تعمل بعد ربط المعالجة الفعلية.",dldemo:"تنزيل تجريبي: ربط القص الحقيقي هو الخطوة التالية.",more:"كليب إضافي (3 نقاط)",nopts:"نقاطك لا تكفي. شاهد إعلاناً أو ادعُ صديقاً.",my:"كليباتي",mynote:"تُحذف الكليبات بعد 7 أيام",cl_:"كليبات",days:"يوم متبقٍ",pricing:"الأسعار",pricing_sub:"ابدأ مجاناً، وارتقِ عندما تحتاج كليبات أطول وأكثر.",free:"مجاني",starter:"ستارتر",pro:"برو",mo:"/ شهرياً",buy:"اشترك",cur:"خطتك الحالية",lt:"تسجيل الدخول بجيميل",cont:"متابعة",err_link:"الصق رابطاً صحيحاً من يوتيوب في كل سطر.",err_file:"اختر ملف فيديو واحداً على الأقل (MP4 أو MOV أو WEBM).",err_email:"اكتب إيميل جيميل صحيحاً.",err_lim:"تجاوزت حد الروابط الشهري لخطتك. اطّلع على الخطط أدناه.",welcome:"أهلاً بك في Zapclip",id:"رقمك (ID)",code:"رمز الدعوة",plan_lbl:"الخطة",pts:"النقاط",left:"روابط متبقية",plan_now:"خطتك الحالية",login_hint:"سجّل الدخول لتبدأ.",ad:"شاهد إعلاناً (+1 نقطة)",adcap:"وصلت الحد اليومي للإعلانات.",dpn:"تجريبي: غيّر الخطة لتجرّب الميزات. الدعوة تعطي 5 نقاط بعد ربط قاعدة البيانات.",dev:"تم التطوير بواسطة",support:"للدفع والدعم",trial:"أول كليب لك بمميزات برو مجاناً.",f_free:["دقيقة أو دقيقتان","رابطان بالشهر","علامة مائية","6 كليبات لكل فيديو","3 قوالب كتابة"],f_st:["حتى 5 دقايق","15 رابطاً بالشهر","بدون علامة مائية","عناوين وهاشتاغات","حتى 12 كليباً لكل فيديو","كل القوالب"],f_pro:["كل ميزات ستارتر","قص الفيديو كاملاً","تعديل الكتابة بالكامل","ترجمة ودبلجة (قريباً)","نشر مباشر (قريباً)"],titles:["اللحظة الأقوى","أهم فكرة","لقطة مفاجئة","جزء مضحك","خلاصة سريعة","مقطع لا يُنسى"],tags:"#ريلز #شورتس #ترند",samples:["هذه اللحظة غيّرت كل شيء","هاذي اللحظة بدّلت كلش","This moment changed everything"],sample:"نص",tp_classic:"كلاسيك",tp_yellow:"أصفر",tp_box:"صندوق",tp_neon:"نيون",tp_outline:"عريض",tp_pink:"أرجواني",tp_retro:"ريترو",tp_gold:"ذهبي"},
+en:{signup:"Sign up",logout:"Log out",h1:"Turn any YouTube video into ready-to-post clips",sub:"Paste a link, pick captions and a template, and we'll suggest the strongest moments.",demo:"Interface demo: results are samples, not real analysis yet, and automatic payment is off.",tab_link:"Paste link",tab_file:"Upload file",links_lbl:"Video links (one per line)",files_lbl:"Video files from your device",drop:"Tap to choose one or more videos",len:"Video duration",m:"min",capsel:"Auto captions",cl0:"No captions",cl1:"Arabic (Standard)",cl2:"Algerian Darija",cl3:"English",tpl:"Caption template (★ Starter and Pro)",style:"Caption styling (Pro)",custom:"Manual tweaks on top of template",font:"Font",size:"Size",color:"Color",anim:"Animation",a0:"None",a1:"Fade",a2:"Pop",a3:"Slide",proonly:"Caption styling is a Pro feature (your first clip is free).",tlock:"This template is for Starter and Pro (and your first clip).",go:"Create clips",steps:["Reading the videos","Turning speech into text","Picking the strongest moments","Adding captions and editing"],found:"We found {n} clips",tlnote:"The colored parts are the suggested moments.",vid:"Video",score:"Score",pv:"Preview",dl:"Download",pvdemo:"Real preview works once real processing is connected.",dldemo:"Demo download: connecting real cutting is the next step.",more:"Extra clip (3 points)",nopts:"Not enough points. Watch an ad or invite a friend.",my:"My clips",mynote:"Clips are deleted after 7 days",cl_:"clips",days:"days left",pricing:"Pricing",pricing_sub:"Start free, upgrade when you need longer and more clips.",free:"Free",starter:"Starter",pro:"Pro",mo:"/ month",buy:"Subscribe",cur:"Your current plan",lt:"Sign in with Gmail",cont:"Continue",err_link:"Paste a valid YouTube link on each line.",err_file:"Choose at least one video file (MP4, MOV or WEBM).",err_email:"Enter a valid Gmail address.",err_lim:"You passed your plan's monthly link limit. See the plans below.",welcome:"Welcome to Zapclip",id:"Your ID",code:"Invite code",plan_lbl:"Plan",pts:"Points",left:"Links left",plan_now:"Your current plan",login_hint:"Sign in to get started.",ad:"Watch an ad (+1 point)",adcap:"Daily ad limit reached.",dpn:"Demo: switch plans to try features. Invites give 5 points once the database is connected.",dev:"Developed by",support:"Payments and support",trial:"Your first clip comes with Pro features for free.",f_free:["1 or 2 minute clips","2 links per month","Watermark","6 clips per video","3 caption templates"],f_st:["Up to 5 minute clips","15 links per month","No watermark","Titles and hashtags","Up to 12 clips per video","All templates"],f_pro:["Everything in Starter","Whole video cut into clips","Full caption styling","Translation and dubbing (soon)","Direct publishing (soon)"],titles:["Strongest moment","Key idea","Surprise shot","Funny part","Quick takeaway","Unforgettable clip"],tags:"#reels #shorts #viral",samples:["هذه اللحظة غيّرت كل شيء","هاذي اللحظة بدّلت كلش","This moment changed everything"],sample:"Text",tp_classic:"Classic",tp_yellow:"Yellow",tp_box:"Box",tp_neon:"Neon",tp_outline:"Bold",tp_pink:"Orchid",tp_retro:"Retro",tp_gold:"Gold"}
+};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const PL={free:{links:2},starter:{links:15},pro:{links:100}};
+let S={lang:(navigator.language||"").startsWith("en")?"en":"ar",users:{},cur:null},LAST=null,TSEL="classic";
+try{const r=localStorage.getItem("zc");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem("zc",JSON.stringify(S))}catch(e){}};
+const t=k=>T[S.lang][k];
+const U=()=>S.cur&&S.users[S.cur];
+const mk=()=>new Date().toISOString().slice(0,7);
+const maxLen=()=>{const u=U();return u&&(u.plan!=="free"||!u.used)?5:2};
+const canPrem=()=>maxLen()===5;
+const canPro=()=>{const u=U();return !!u&&(u.plan==="pro"||!u.used)};
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+const TP=[
+{k:"classic",p:0,css:"color:#fff;font-size:16px",an:"none"},
+{k:"yellow",p:0,css:"color:#ffd23f;font-size:18px",an:"fade"},
+{k:"box",p:0,css:"color:#fff;background:#000a;padding:2px 8px;border-radius:6px;font-size:16px;text-shadow:none",an:"none"},
+{k:"neon",p:1,css:"color:#f6e0ff;text-shadow:0 0 6px #c24dff,0 0 14px #c24dff;font-size:20px",an:"pop"},
+{k:"outline",p:1,css:"color:#ffe14d;-webkit-text-stroke:2px #000;paint-order:stroke fill;font-family:Impact;font-size:22px;text-shadow:none",an:"pop"},
+{k:"pink",p:1,css:"color:#fff;background:#c24dff;padding:2px 10px;border-radius:8px;font-size:18px;text-shadow:none",an:"slide"},
+{k:"retro",p:1,css:"color:#fff;text-shadow:3px 3px 0 #c24dff,6px 6px 0 #000;font-size:20px",an:"slide"},
+{k:"gold",p:1,css:"color:#ffd23f;text-shadow:0 2px 0 #8a5a00,0 0 10px #ffb020;font-size:20px",an:"fade"}
+];
+function styleFor(){
+ let tp=TP.find(x=>x.k===TSEL)||TP[0];if(tp.p&&!canPrem())tp=TP[0];
+ let css=tp.css,anim=tp.an;
+ if(canPro()&&$("#cu").checked){css+=";font-family:"+$("#ft").value+";font-size:"+$("#sz").value+"px;color:"+$("#co").value;anim=$("#an").value}
+ return{css,anim};
+}
+function toast(m){const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2800)}
+function mail(k){const u=U();return"mailto:lifeatest9@gmail.com?subject="+encodeURIComponent("Zapclip "+k)+"&body="+encodeURIComponent("ID: "+(u?u.id:"")+"\nPlan: "+k+"\n")}
+function render(){
+ const u=U();
+ document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==="ar"?"rtl":"ltr";
+ $$("[data-i]").forEach(e=>{if(!(e.id==="fname"&&$("#files").files.length))e.textContent=t(e.dataset.i)});
+ $("#lang").textContent=S.lang==="ar"?"EN":"عربي";
+ $("#li").hidden=!!u;$("#lo").hidden=!u;$("#db").hidden=!u;$("#my").hidden=!u;
+ $("#tr").hidden=!(u&&!u.used);
+ if(u&&u.m!==mk()){u.m=mk();u.lu=0}
+ $("#plan").innerHTML=u?`${t("plan_now")}: <b>${t(u.plan)}</b> — ${Math.max(0,PL[u.plan].links-u.lu)} ${t("left")}`:t("login_hint");
+ const ml=maxLen();
+ [...$("#ln").options].forEach(o=>{const lk=+o.value>ml;o.textContent=o.value+" "+t("m")+(lk?" \u{1F512}":"");o.disabled=lk});
+ if(+$("#ln").value>ml)$("#ln").value="2";
+ $("#tpg").innerHTML=TP.map(x=>`<button type="button" class="${x.k===TSEL?"on":""}" data-k="${x.k}"><span class="tv"><span class="cap" style="${x.css}">${t("sample")}</span></span><span>${t("tp_"+x.k)}${x.p?" \u2605":""}${x.p&&!canPrem()?" \u{1F512}":""}</span></button>`).join("");
+ const pro=canPro();$("#fs").disabled=!pro;$("#lock").textContent=pro?"":t("proonly");
+ $("#pl").innerHTML=[["free",0,"f_free"],["starter",5,"f_st"],["pro",12,"f_pro"]].map(([k,p,f])=>`<div class="pc ${k==="pro"?"best":""}"><h3>${t(k)}</h3><div class="pr">${p?"$"+p:"0"} <small>${p?t("mo"):""}</small></div><ul>${t(f).map(x=>`<li>${x}</li>`).join("")}</ul>${u&&u.plan===k?`<span class="pb dis">${t("cur")}</span>`:p?`<a class="pb" href="${mail(k)}">${t("buy")}</a>`:""}</div>`).join("");
+ if(u){
+  const c=(l,v)=>`<div><div>${l}</div><b>${v}</b></div>`;
+  $("#dbi").innerHTML=c(t("id"),u.id)+c(t("code"),u.code)+c(t("plan_lbl"),t(u.plan))+c(t("pts"),u.points);
+  $("#dp").value=u.plan;
+  const now=Date.now();
+  $("#myl").innerHTML=(u.sets||[]).filter(s=>now-s.ts<6048e5).slice(-8).reverse().map(s=>`<div>${new Date(s.ts).toLocaleDateString()} &middot; ${s.len} ${t("m")} &middot; ${s.n} ${t("cl_")} &middot; ${7-Math.floor((now-s.ts)/864e5)} ${t("days")}</div>`).join("");
+ }
+ clips();
+}
+function clips(){
+ const u=U();$("#res").hidden=!(LAST&&u);if(!LAST||!u)return;
+ const L=LAST,sp=t("samples")[L.cap-1]||"";
+ let h=`<h2>${t("found").replace("{n}",L.vids.reduce((a,v)=>a+v.list.length,0))}</h2><p class="meta">${t("tlnote")}</p>`;
+ L.vids.forEach((v,vi)=>{
+  if(L.vids.length>1)h+=`<h3 class="vh">${v.name||t("vid")+" "+(vi+1)}</h3>`;
+  h+=`<div class="tl">${v.list.map((c,i)=>`<span data-t="c${vi}_${i}" style="left:${c.st/18}%;width:${c.d/18}%"></span>`).join("")}</div><div class="ticks"><span>0:00</span><span>15:00</span><span>30:00</span></div>`;
+  h+=v.list.map((c,i)=>`<article class="clip" id="c${vi}_${i}"><h3>${t("titles")[c.ti%6]}</h3><p class="meta">${fmt(c.st)} \u2192 ${fmt(c.st+c.d)} &middot; ${fmt(c.d)} &middot; <span class="badge">${t("score")} ${c.s}</span></p><div class="screen">${L.wm?'<span class="wm">\u26A1Zapclip</span>':""}<div class="cap ${L.anim}" style="${L.css}">${L.cap?sp:""}</div></div>${L.tags?`<p class="meta">${t("tags")}</p>`:""}<div class="acts"><button type="button" data-a="pv">${t("pv")}</button><button type="button" class="p" data-a="dl">${t("dl")}</button></div></article>`).join("");
+ });
+ $("#cl").innerHTML=h;
+ $("#mr").innerHTML=u.plan==="free"?`<button type="button" class="more" id="more">${t("more")}</button>`:"";
+}
+$("#lang").onclick=()=>{S.lang=S.lang==="ar"?"en":"ar";save();render()};
+$("#li").onclick=()=>{$("#md").hidden=false;$("#em").focus()};
+$("#cx").onclick=()=>$("#md").hidden=true;
+$("#lo").onclick=()=>{S.cur=null;LAST=null;save();render()};
+$("#ok").onclick=()=>{
+ const e=$("#em").value.trim().toLowerCase();
+ if(!/^[^\s@]+@gmail\.com$/.test(e)){$("#ee").textContent=t("err_email");return}
+ $("#ee").textContent="";
+ S.users[e]=S.users[e]||{id:"ZC-"+rnd(100000,999999),code:Array.from({length:6},()=>"ABCDEFGHJKLMNPQRSTUVWXYZ"[rnd(0,23)]).join(""),plan:"free",points:0,used:false,lu:0,m:mk(),sets:[]};
+ S.cur=e;save();$("#md").hidden=true;render();toast(t("welcome"));
+};
+$("#dp").onchange=e=>{U().plan=e.target.value;save();render()};
+$("#ad").onclick=()=>{
+ const u=U(),d=new Date().toDateString();
+ if(u.ad!==d){u.ad=d;u.an=0}
+ if(u.an>=5){toast(t("adcap"));return}
+ const b=$("#ad"),base=t("ad").split("(")[0];b.disabled=true;let n=5;b.textContent=base+n;
+ const iv=setInterval(()=>{n--;if(n>0){b.textContent=base+n;return}clearInterval(iv);u.points++;u.an++;save();b.disabled=false;render()},1000);
+};
+$$(".tabs button").forEach(b=>b.onclick=()=>{
+ $$(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
+ $("#pn-link").hidden=b.dataset.m!=="link";$("#pn-file").hidden=b.dataset.m!=="file";$("#err").textContent="";
+});
+$("#files").onchange=function(){const n=this.files.length;$("#fname").textContent=n?(n===1?this.files[0].name:n+" files"):t("drop")};
+$("#tpg").onclick=e=>{
+ const b=e.target.closest("button");if(!b)return;
+ const x=TP.find(y=>y.k===b.dataset.k);
+ if(x.p&&!canPrem()){toast(t("tlock"));return}
+ TSEL=x.k;render();
+};
+$("#go").onclick=()=>{
+ const u=U();if(!u){$("#li").click();return}
+ const er=$("#err");er.textContent="";
+ const mode=$(".tabs [aria-selected=true]").dataset.m;
+ let n,names=[];
+ if(mode==="link"){
+  const ls=$("#url").value.split(/\s+/).filter(Boolean);
+  if(!ls.length||ls.some(x=>!/(youtu\.be\/|youtube\.com\/)/i.test(x))){er.textContent=t("err_link");return}
+  n=ls.length;
+ }else{
+  const fl=[...$("#files").files];
+  if(!fl.length||fl.some(f=>f.type.indexOf("video/")!==0)){er.textContent=t("err_file");return}
+  n=fl.length;names=fl.map(f=>f.name);
+ }
+ if(u.lu+n>PL[u.plan].links){er.textContent=t("err_lim");$("#pricing").scrollIntoView({behavior:"smooth"});return}
+ const len=+$("#ln").value,cap=+$("#cs").value,opt=styleFor();
+ $("#go").disabled=true;$("#res").hidden=true;
+ $("#status").innerHTML='<ul class="steps">'+t("steps").map((s,i)=>`<li id="st${i}">${s}</li>`).join("")+"</ul>";
+ let i=0;
+ (function tick(){
+  if(i>0)$("#st"+(i-1)).className="done";
+  if(i<4){$("#st"+i).className="on";i++;setTimeout(tick,700);return}
+  const D=len*60,tot=1800,fit=Math.floor(tot/D),k=u.plan==="pro"?fit:Math.min(u.plan==="starter"?12:6,fit),sp=Math.floor(tot/k);
+  const vids=Array.from({length:n},(_,v)=>({name:names[v]||"",list:Array.from({length:k},(_,j)=>u.plan==="pro"?{ti:j,s:rnd(70,98),d:D,st:j*D}:{ti:j,s:rnd(70,98),d:D-rnd(0,10),st:j*sp+rnd(0,Math.max(0,sp-D))})}));
+  u.lu+=n;u.used=true;u.sets.push({ts:Date.now(),len,n:n*k});
+  LAST=Object.assign({vids,len,cap,wm:u.plan==="free",tags:u.plan!=="free"},opt);
+  save();$("#status").innerHTML="";$("#go").disabled=false;render();
+  $("#res").scrollIntoView({behavior:"smooth"});
+ })();
+};
+$("#res").onclick=e=>{
+ const tl=e.target.closest(".tl span");
+ if(tl){const el=document.getElementById(tl.dataset.t);if(el)el.scrollIntoView({behavior:"smooth",block:"center"});return}
+ const a=e.target.dataset.a;
+ if(a)toast(t(a==="dl"?"dldemo":"pvdemo"));
+ if(e.target.id==="more"){
+  const u=U();
+  if(u.points<3){toast(t("nopts"));return}
+  u.points-=3;LAST.vids[0].list.push({ti:rnd(0,5),s:rnd(70,90),d:LAST.len*60-rnd(0,10),st:rnd(0,1500)});save();render();
+ }
+};
+render();
+</script>
+</body>
+</html>
